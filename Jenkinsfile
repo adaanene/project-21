@@ -23,16 +23,15 @@ pipeline{
         }
 
         stage('Building image') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS'),
-                                     string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS_PSW')]) {
-                        sh "docker login -u adaane -p ${DOCKER_HUB_CREDENTIALS}"
-                        sh "docker build -t adaane/todo-prj20:${TAG} ."
-                    }
-                }
+    steps {
+        script {
+            withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+                sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
+                sh "docker build -t adaane/todo-prj20:${TAG} ."
             }
         }
+    }
+}
 
         stage('Creating docker container') {
             steps {
