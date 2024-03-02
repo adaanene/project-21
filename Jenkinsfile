@@ -26,12 +26,16 @@ pipeline{
     steps {
         script {
             withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                sh "docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}"
+                def dockerHubUsername = env.DOCKER_HUB_USERNAME
+                def dockerHubPassword = env.DOCKER_HUB_PASSWORD
+
+                sh "docker login -u $dockerHubUsername -p $dockerHubPassword"
                 sh "docker build -t adaane/todo-prj20:${TAG} ."
             }
         }
     }
 }
+
 
         stage('Creating docker container') {
             steps {
