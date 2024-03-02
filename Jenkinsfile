@@ -23,15 +23,13 @@ pipeline{
         }
 
         stage('Building image') {
-            environment {
-                DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
-            }
-            
             steps {
                 script {
-                
-                    sh "docker login -u adaane -p ${env.DOCKER_HUB_CREDENTIALS}"
-                    sh "docker build -t adaane/todo-prj20:${env.TAG} ." 
+                    withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS'),
+                                     string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS_PSW')]) {
+                        sh "docker login -u adaane -p ${DOCKER_HUB_CREDENTIALS}"
+                        sh "docker build -t adaane/todo-prj20:${TAG} ."
+                    }
                 }
             }
         }
