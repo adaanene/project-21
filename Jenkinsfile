@@ -30,7 +30,7 @@ pipeline{
             steps {
                 script {
                 
-                    sh ' docker login -u adaane -p ${env.DOCKER_HUB_CREDENTIALS}'
+                    sh "docker login -u adaane -p ${env.DOCKER_HUB_CREDENTIALS}"
                     sh "docker build -t adaane/todo-prj20:${env.TAG} ." 
                 }
             }
