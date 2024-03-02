@@ -19,7 +19,7 @@ pipeline{
 
         stage('Checkout Git') {
             steps {
-                git branch: 'main', credentialsId: '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', url: 'https://github.com/adaanene/project-20.git'
+                git branch: 'main', credentialsId: 'git', url: 'https://github.com/adaanene/project-20.git'
             }
         }
 
