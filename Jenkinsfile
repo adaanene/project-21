@@ -19,11 +19,11 @@ pipeline{
 
         stage('Checkout Git') {
             steps {
-                git branch: 'main', credentialsId: '1f538342-affb-4763-b4dd-70aa119ae380', url: 'https://github.com/Micah-Shallom/php-todo-proj20.git'
+                git branch: 'main', credentialsId: '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', url: 'https://github.com/adaanene/project-20.git'
             }
         }
 
-        stage('Building application ') {
+        stage('Building image') {
             steps {
                 script {
                     
