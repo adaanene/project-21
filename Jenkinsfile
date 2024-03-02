@@ -5,7 +5,6 @@ pipeline{
         TAG = "${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
         max = 20
         random_num = "${Math.abs(new Random().nextInt(max+1))}"
-//         docker_password = credentials('dockerhub_password')
     }
 
     stages{
@@ -24,10 +23,14 @@ pipeline{
         }
 
         stage('Building image') {
+            environment {
+                DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
+            }
+            
             steps {
                 script {
-                    
-                    sh " docker login -u adaane -p ${env.PASSWORD}"
+                
+                    sh " docker login -u adaane -p ${env.DOCKER_HUB_CREDENTIALS}"
                     sh " docker build -t adaane/todo-prj20:${env.TAG} ."
                 }
             }
