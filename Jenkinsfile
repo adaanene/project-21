@@ -29,7 +29,7 @@ pipeline{
                 def dockerHubUsername = env.DOCKER_HUB_USERNAME
                 def dockerHubPassword = env.DOCKER_HUB_PASSWORD
 
-                sh "docker login -u $dockerHubUsername -p $dockerHubPassword"
+                sh "docker login -u ${dockerHubUsername} -p ${dockerHubPassword}"
                 sh "docker build -t adaane/todo-prj20:${TAG} ."
             }
         }
